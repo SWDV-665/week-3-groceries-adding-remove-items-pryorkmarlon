@@ -49,6 +49,19 @@ export class Tab2Page {
     
   }
 
+  editItem(item, index) {
+    console.log("Edit item ", item, index);
+    this.toastCtrl.create({
+
+      message: "Editing Item  - " + index,
+      duration: 3000
+    }).then(res => res.present());
+    this.editPrompt(item, index)
+    
+
+    
+  }
+
   addItem() {
     console.log("Adding Item");
     this.showPrompt();
@@ -91,16 +104,50 @@ export class Tab2Page {
 
     }).then(res => res.present());
     
-
-
-
-
-
-
-
-
-
   }
+
+  editPrompt(item, index) {
+    const prompt = this.alertCtrl.create({ 
+
+      
+      message: "Please edit item...",
+      inputs: [
+         {
+
+           name: 'name',
+           placeholder: 'Name',
+           value: item.name
+
+         },
+         {
+           name: 'quantity',
+           placeholder: 'Quantity',
+           value: item.quantity
+
+         }  
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: item => {
+            console.log('Cancel clicked',);
+          }
+          
+        },
+        {
+          text: 'Save',
+          handler: item => {
+            console.log('Saved clicked', item);
+            this.items[index] = item;
+          }
+        }
+      ]
+
+
+    }).then(res => res.present());
+    
+  }
+
 
   
 
